@@ -1,0 +1,74 @@
+type User {
+  artists: [Artist!]
+  createdAt: DateTime! @createdAt
+  credits: [Credit!]
+  email: String! @unique
+  fName: String!
+  facebookHandle: String
+  id: ID! @id
+  imgUrl: String
+  instagramHandle: String
+  lName: String!
+  password: String!
+  roles: [Role!]
+  soundcloudHandle: String
+  twitterHandle: String
+  updatedAt: DateTime! @updatedAt
+  website: String
+}
+
+type Artist {
+  createdAt: DateTime! @createdAt
+  email: String
+  facebookHandle: String
+  genre: Genre
+  id: ID! @id
+  imgUrl: String
+  instagramHandle: String
+  name: String!
+  projects: [Project!]
+  soundcloudHandle: String
+  twitterHandle: String
+  updatedAt: DateTime! @updatedAt
+  users: [User!]!
+  website: String
+}
+
+type Genre {
+  artists: [Artist!]
+  createdAt: DateTime! @createdAt
+  id: ID! @id
+  name: String! @unique
+  updatedAt: DateTime! @updatedAt
+}
+
+type Role {
+  createdAt: DateTime! @createdAt
+  id: ID! @id
+  name: String! @unique
+  updatedAt: DateTime! @updatedAt
+  users: [User!]!
+}
+
+type Project {
+  amazonMusicUrl: String @unique
+  appleMusicUrl: String @unique
+  artist: Artist!
+  createdAt: DateTime! @createdAt
+  id: ID! @id
+  imgUrl: String
+  name: String!
+  soundcouldUrl: String @unique
+  spotifyUrl: String @unique
+  updatedAt: DateTime! @updatedAt
+  credits: [Credit!]
+}
+
+type Credit {
+  createdAt: DateTime! @createdAt
+  id: ID! @id
+  project: Project!
+  role: Role!
+  updatedAt: DateTime! @updatedAt
+  user: User!
+}
