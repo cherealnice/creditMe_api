@@ -3,11 +3,9 @@ export default {
     role: (parent, args, ctx) => (
       ctx.prisma.role(args)
     ),
-    roles: async (parent, args, ctx) => {
-      const nodes = await ctx.prisma.roles();
-
-      return { nodes };
-    },
+    roles: (parent, args, ctx) => (
+      ctx.prisma.roles()
+    ),
   },
   Role: {
     users: ({ id }, args, ctx) => (

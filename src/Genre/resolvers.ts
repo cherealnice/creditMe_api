@@ -3,11 +3,9 @@ export default {
     genre: (parent, args, ctx) => (
       ctx.prisma.genre(args)
     ),
-    genres: async (parent, args, ctx) => {
-      const nodes = await ctx.prisma.genres();
-
-      return { nodes };
-    },
+    genres: (parent, args, ctx) => (
+      ctx.prisma.genres()
+    ),
   },
   Genre: {
     artists: ({ id }, args, ctx) => (

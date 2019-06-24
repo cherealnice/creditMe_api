@@ -9,12 +9,8 @@ export default gql`
     users: [User]!
   }
 
-  type Roles {
-    nodes: [Role]
-  }
-
   extend type Query {
     role(id: ID!): Role
-    roles: Roles
+    roles: [Role]
   }
 `;

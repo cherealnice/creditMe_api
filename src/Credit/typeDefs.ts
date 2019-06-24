@@ -10,12 +10,8 @@ export default gql`
     user: User!
   }
 
-  type Credits {
-    nodes: [Credit]
-  }
-
   extend type Query {
     credit(id: ID!): Credit
-    credits: Credits
+    credits: [Credit]
   }
 `;

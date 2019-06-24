@@ -3,11 +3,9 @@ export default {
     credit: (parent, args, ctx) => (
       ctx.prisma.credit(args)
     ),
-    credits: async (parent, args, ctx) => {
-      const nodes = await ctx.prisma.credits();
-
-      return { nodes };
-    },
+    credits: (parent, args, ctx) => (
+      ctx.prisma.credits()
+    ),
   },
   Credit: {
     project: ({ id }, args, ctx) => (

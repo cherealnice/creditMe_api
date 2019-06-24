@@ -3,11 +3,9 @@ export default {
     artist: (parent, args, ctx) => (
       ctx.prisma.artist(args)
     ),
-    artists: async (parent, args, ctx) => {
-      const nodes = await ctx.prisma.artists();
-
-      return { nodes };
-    },
+    artists: (parent, args, ctx) => (
+      ctx.prisma.artists()
+    ),
   },
   Artist: {
     projects: ({ id }, args, ctx) => (

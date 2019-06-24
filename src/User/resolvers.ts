@@ -4,11 +4,9 @@ export default {
     user: (parent, args, ctx) => (
       ctx.prisma.user(args)
     ),
-    users: async (parent, args, ctx) => {
-      const nodes = await ctx.prisma.users();
-
-      return { nodes };
-    },
+    users: (parent, args, ctx) => (
+      ctx.prisma.users()
+    ),
   },
   User: {
     credits: ({ id }, args, ctx) => (

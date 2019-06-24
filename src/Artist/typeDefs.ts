@@ -18,12 +18,8 @@ export default gql`
     website: String
   }
 
-  type Artists {
-    nodes: [Artist]
-  }
-
   extend type Query {
     artist(id: ID!): Artist
-    artists: Artists
+    artists: [Artist]
   }
 `;

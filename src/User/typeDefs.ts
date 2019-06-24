@@ -19,13 +19,9 @@ export default gql`
     website: String
   }
 
-  type Users {
-    nodes: [User]
-  }
-
   extend type Query {
     user(id: ID, email: String): User
-    users: Users
+    users: [User]
     me: User
   }
 `;

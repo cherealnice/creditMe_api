@@ -15,12 +15,8 @@ export default gql`
     credits: [Credit!]
   }
 
-  type Projects {
-    nodes: [Project]
-  }
-
   extend type Query {
     project(id: ID!): Project
-    projects: Projects
+    projects: [Project]
   }
 `;

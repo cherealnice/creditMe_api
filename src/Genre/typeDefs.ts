@@ -9,12 +9,8 @@ export default gql`
     updatedAt: String!
   }
 
-  type Genres {
-    nodes: [Genre]
-  }
-
   extend type Query {
     genre(id: ID!): Genre
-    genres: Genres
+    genres: [Genre]
   }
 `;
