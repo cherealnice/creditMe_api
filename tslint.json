@@ -5,8 +5,8 @@
   ],
   "linterOptions": {
       "exclude": [
-        "generated",
-        "node_modules"
+        "**/generated/**",
+        "**/node_modules/**"
       ]
   },
   "rules": {

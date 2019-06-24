@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server-express';
+import gql from 'graphql-tag';
 
 export default gql`
   type Role implements Node {
@@ -9,8 +9,17 @@ export default gql`
     users: [User]!
   }
 
+  input RoleInput {
+    name: String!
+  }
+
   extend type Query {
     role(id: ID!): Role
     roles: [Role]
+  }
+
+  extend type Mutation {
+    createRole(role: RoleInput): Role
+    updateRole(id: ID!, role: RoleInput): Role
   }
 `;

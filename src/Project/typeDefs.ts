@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server-express';
+import gql from 'graphql-tag';
 
 export default gql`
   type Project implements Node {
@@ -15,8 +15,24 @@ export default gql`
     credits: [Credit!]
   }
 
+  input ProjectInput {
+    amazonMusicUrl: String
+    appleMusicUrl: String
+    artistId: String!
+    imgUrl: String
+    name: String!
+    soundcouldUrl: String
+    spotifyUrl: String
+    updatedAt: String!
+  }
+
   extend type Query {
     project(id: ID!): Project
     projects: [Project]
+  }
+
+  extend type Mutation {
+    createProject(project: ProjectInput): Project
+    updateProject(id: ID!, project: ProjectInput): Project
   }
 `;

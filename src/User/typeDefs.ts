@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server-express';
+import gql from 'graphql-tag';
 
 export default gql`
   type User implements Node {
@@ -19,9 +19,27 @@ export default gql`
     website: String
   }
 
+  input UserInput {
+    email: String!
+    fName: String!
+    lName: String!
+    facebookHandle: String
+    imgUrl: String
+    instagramHandle: String
+    roleIds: [String]
+    soundcloudHandle: String
+    twitterHandle: String
+    website: String
+  }
+
   extend type Query {
     user(id: ID, email: String): User
     users: [User]
     me: User
+  }
+
+  extend type Mutation {
+    createUser(user: UserInput): User
+    updateUser(id: ID!, user: UserInput): User
   }
 `;

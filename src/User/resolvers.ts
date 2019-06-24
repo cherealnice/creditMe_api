@@ -1,3 +1,7 @@
+import { connectIncludedData } from '../helpers';
+
+const includedDataKeys = ['role'];
+
 export default {
   Query: {
     me: (parent, args, ctx) => ctx.me,
@@ -18,5 +22,28 @@ export default {
     roles: ({ id }, args, ctx) => (
       ctx.prisma.user({ id }).roles()
     ),
+  },
+  Mutation: {
+    createUser: (parent, { user }, ctx) => {
+      const data = connectIncludedData(
+        user,
+        includedDataKeys,
+        ctx.me,
+      );
+
+      return ctx.prisma.createUser(data);
+    },
+    updateUser: (parent, { id, user }, ctx) => {
+      const data = connectIncludedData(
+        user,
+        includedDataKeys,
+        ctx.me,
+      );
+
+      return ctx.prisma.updateUser({
+        where: { id },
+        data,
+      });
+    },
   },
 };

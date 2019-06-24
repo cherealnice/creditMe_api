@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server-express';
+import gql from 'graphql-tag';
 
 export default gql`
   type Genre implements Node {
@@ -9,8 +9,17 @@ export default gql`
     updatedAt: String!
   }
 
+  input GenreInput {
+    name: String!
+  }
+
   extend type Query {
     genre(id: ID!): Genre
     genres: [Genre]
+  }
+
+  extend type Mutation {
+    createGenre(genre: GenreInput): Genre
+    updateGenre(id: ID!, genre: GenreInput): Genre
   }
 `;
