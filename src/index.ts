@@ -1,4 +1,5 @@
 import { gql } from 'apollo-server-express';
+import * as merge from 'deepmerge';
 import { GraphQLScalarType } from 'graphql';
 import Auth from './Auth';
 import Artist from './Artist';
@@ -52,3 +53,13 @@ export const resolvers = [
   Role.resolvers,
   User.resolvers,
 ];
+
+export const permissions = merge.all<any>([
+  Auth.permissions,
+  Artist.permissions,
+  Credit.permissions,
+  Genre.permissions,
+  Project.permissions,
+  Role.permissions,
+  User.permissions,
+]);

@@ -1,5 +1,6 @@
 export default {
   Query: {
+    me: (parent, args, ctx) => ctx.me,
     user: (parent, args, ctx) => (
       ctx.prisma.user(args)
     ),
@@ -19,5 +20,5 @@ export default {
     roles: ({ id }, args, ctx) => (
       ctx.prisma.user({ id }).roles()
     ),
-  }
+  },
 };

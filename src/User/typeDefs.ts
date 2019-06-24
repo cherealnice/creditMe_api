@@ -26,5 +26,6 @@ export default gql`
   extend type Query {
     user(id: ID, email: String): User
     users: Users
+    me: User
   }
 `;

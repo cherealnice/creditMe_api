@@ -1,21 +1,41 @@
 import { ApolloServer } from 'apollo-server';
-import { resolvers, typeDefs } from './src';
+import { makeExecutableSchema } from 'graphql-tools';
+import { applyMiddleware } from 'graphql-middleware';
+import * as jwt from 'jsonwebtoken';
+import { resolvers, typeDefs, permissions } from './src';
 import { prisma } from './src/generated/prisma-client';
 
 require('dotenv').config();
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context: ({ req }) => {
-    const token = req.headers.authorization || '';
-    // const me = getMe(token);
+const schema = makeExecutableSchema({ typeDefs, resolvers });
 
-    // if (!me) throw new AuthorizationError('you must be logged in');
+const schemaWithMiddleware = applyMiddleware(schema, permissions);
+
+const server = new ApolloServer({
+  schema: schemaWithMiddleware,
+  context: async ({ req }) => {
+    const token = req.headers.authorization || '';
+    let user;
+    let me;
+
+    if (token) {
+      try {
+        user = jwt.verify(
+          token,
+          process.env.JWT_PRIVATE_KEY,
+        );
+      } catch (e) {
+        // console.error(e);
+      }
+    }
+
+    if (user) {
+      me = await prisma.user({ id: user.userId });
+    }
 
     return {
       prisma,
-      //      me,
+      me,
     };
   },
 });
